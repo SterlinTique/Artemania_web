@@ -71,3 +71,179 @@ export default defineConfig([
   },
 ])
 ```
+src/
+├── components/
+├── pages/
+│   ├── auth/
+│   │   └── LoginPage.tsx
+│   └── home/
+│       └── HomePage.tsx 
+├── routes/
+│   └── AppRouter.tsx
+├── services/
+├── hooks/
+├── context/
+├── layouts/
+│   └── MainLayout.tsx
+├── types/
+├── utils/
+├── theme/
+├── assets/
+├── App.css
+├── App.tsx
+├── index.css
+└── main.tsx
+
+
+
+
+project-root/
+├── .bundle/
+├── __tests__/
+├── android/
+├── ios/
+├── server/
+├── src/
+│   ├── components/
+│   │   ├── AddressModal.tsx
+│   │   ├── BannerCard.tsx
+│   │   ├── BecomeArtisanModal.tsx
+│   │   ├── BottomNav.tsx
+│   │   ├── MainHeader.tsx
+│   │   ├── MinecraftSplash.tsx
+│   │   ├── PaymentModal.tsx
+│   │   ├── PostCard.tsx
+│   │   ├── PostCommentsModal.tsx
+│   │   ├── PostLikersModal.tsx
+│   │   ├── ProductOwnerControls.tsx
+│   │   ├── ProductReviews.tsx
+│   │   ├── ReportModal.tsx
+│   │   ├── SuccessRegistrationModal.tsx
+│   │   ├── TermsModal.tsx
+│   │   └── WelcomeModal.tsx
+│   │
+│   ├── config/
+│   │   └── developer.ts
+│   │
+│   ├── context/
+│   │   ├── AuthContext.tsx
+│   │   ├── CartContext.tsx
+│   │   ├── ChatContext.tsx
+│   │   ├── CommunityContext.tsx
+│   │   ├── ConfigContext.tsx
+│   │   ├── FavoritesContext.tsx
+│   │   ├── LikedPostsContext.tsx
+│   │   ├── NotificationsContext.tsx
+│   │   ├── StoreContext.tsx
+│   │   └── ToastContext.tsx
+│   │
+│   ├── hooks/
+│   │   └── useProductDetail.ts
+│   │
+│   ├── navigation/
+│   │   └── AppNavigator.tsx
+│   │
+│   ├── screens/
+│   │   ├── artisan/
+│   │   │   ├── ArtisanClassesScreen.tsx
+│   │   │   ├── ArtisanStatsScreen.tsx
+│   │   │   ├── ProductsScreen.tsx
+│   │   │   ├── PublishProductScreen.tsx
+│   │   │   └── SalesScreen.tsx
+│   │   │
+│   │   ├── auth/
+│   │   │   ├── ForgotPasswordScreen.tsx
+│   │   │   ├── LoginScreen.tsx
+│   │   │   └── RegisterScreen.tsx
+│   │   │
+│   │   ├── chat/
+│   │   │   ├── ChatScreen.tsx
+│   │   │   └── ChatsListScreen.tsx
+│   │   │
+│   │   ├── community/
+│   │   │   ├── LikedPostsScreen.tsx
+│   │   │   ├── PostDetailScreen.tsx
+│   │   │   ├── PublishPostScreen.tsx
+│   │   │   └── TutorialsScreen.tsx
+│   │   │
+│   │   ├── orders/
+│   │   │   ├── InvoiceScreen.tsx
+│   │   │   ├── OrderDetailsScreen.tsx
+│   │   │   └── PurchasesScreen.tsx
+│   │   │
+│   │   ├── profile/
+│   │   │   ├── AccountSettingsScreen.tsx
+│   │   │   ├── AddressesScreen.tsx
+│   │   │   └── PaymentMethodsScreen.tsx
+│   │   │
+│   │   ├── shop/
+│   │   │   ├── ArtesanoProfileScreen.tsx
+│   │   │   ├── CartScreen.styles.ts
+│   │   │   ├── CartScreen.tsx
+│   │   │   ├── FavoritesScreen.tsx
+│   │   │   ├── MarketplaceScreen.tsx
+│   │   │   ├── ProductDetailScreen.styles.ts
+│   │   │   └── ProductDetailScreen.tsx
+│   │   │
+│   │   └── system/
+│   │       ├── EduModuleScreen.tsx
+│   │       ├── HomeScreen.tsx
+│   │       ├── MaintenanceScreen.tsx
+│   │       ├── NotificationsScreen.tsx
+│   │       ├── PausedScreen.tsx
+│   │       ├── SuspendedScreen.tsx
+│   │       └── TerrorScreen.tsx
+│   │
+│   ├── services/
+│   │   ├── auth.ts
+│   │   ├── banners.ts
+│   │   ├── cache.ts
+│   │   ├── chat.ts
+│   │   ├── commerce.ts
+│   │   ├── db.ts
+│   │   ├── firebaseConnection.js
+│   │   ├── moderation.ts
+│   │   ├── notifications.ts
+│   │   ├── posts.ts
+│   │   ├── products.ts
+│   │   ├── reviews.ts
+│   │   ├── storage.ts
+│   │   ├── supabaseConnection.ts
+│   │   └── users.ts
+│   │
+│   ├── theme/
+│   │   └── index.ts
+│   │
+│   ├── types/
+│   │   ├── env.d.ts
+│   │   └── index.ts
+│   │
+│   └── utils/
+│       └── crypto.ts
+│
+├── web/
+│   ├── public/
+│   │   └── index.html
+│   ├── .firebaserc
+│   ├── .gitignore
+│   └── firebase.json
+│
+├── .env.template
+├── .eslintrc.js
+├── .gitignore
+├── .prettierrc.js
+├── .watchmanconfig
+├── App.tsx
+├── Gemfile
+├── app.json
+├── babel.config.js
+├── fix_padding.js
+├── index.js
+├── jest.config.js
+├── metro.config.js
+├── package-lock.json
+├── package.json
+├── query
+├── readme.md
+├── transform_safe_area.js
+└── tsconfig.json

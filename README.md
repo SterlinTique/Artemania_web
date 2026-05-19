@@ -247,3 +247,15 @@ project-root/
 ├── readme.md
 ├── transform_safe_area.js
 └── tsconfig.json
+
+
+
+# Instalaciones y comandos npm hasta el moento:
+npm create vite@latest
+npm install react-router-dom
+npm install tailwindcss @tailwindcss/vite
+npm install react-icons
+
+npm install sonner
+
+npm run dev (este es para correr el server)

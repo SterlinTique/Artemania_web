@@ -111,6 +111,7 @@ export default function LoginPage() {
             <AuthButton 
             text={loading? "Ingresando...": "Iniciar Sesión"} 
             onClick={handleLogin}
+            loading={loading}
             />
 
             {/* Register */}

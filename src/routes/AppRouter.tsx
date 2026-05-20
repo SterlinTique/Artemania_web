@@ -1,25 +1,58 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
 import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 
+import MainLayout from "../layouts/MainLayout";
+import HomePage from "../pages/system/HomePage";
+
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
+
 export default function AppRouter() {
     return (
-        <BrowserRouter>
         <Routes>
-            <Route path="/" element={<LoginPage />} />
+                {/* Rutas públicas */}
+            <Route path="/" element={
+                <PublicRoute>
+                    <LoginPage />
+                </PublicRoute>
+            } />
 
             <Route
             path="/register"
-            element={<RegisterPage />}
+            element={
+                <PublicRoute>
+                    <RegisterPage />
+                </PublicRoute>
+            }
             />
 
             <Route
             path="/forgot-password"
-            element={<ForgotPasswordPage />}
+            element={
+                <PublicRoute>
+                    <ForgotPasswordPage />
+                </PublicRoute>
+            }
             />
-        </Routes>
-        </BrowserRouter>
+
+             {/* Rutas protegidas */}
+             {/* App */}
+            
+            <Route element={<MainLayout />}>
+
+                <Route
+                    path="/home"
+                    element={
+                    <ProtectedRoute>
+                        <HomePage />
+                    </ProtectedRoute>
+                    }
+                />
+
+            </Route>    
+        </Routes>   
     );
 }

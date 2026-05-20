@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 
 import { useToast } from "../../hooks/useToast";
+import { useNavigate } from "react-router-dom";
+
+import { sendResetEmail } from "../../services/auth";
+
+import { getUserProfileByEmail } from "../../services/users";
+
+import { verifySecretWord } from "../../utils/crypto";
 
 import { FaLockOpen, FaInfoCircle } from "react-icons/fa";
 
@@ -18,8 +25,11 @@ export default function ForgotPasswordPage() {
     const [secretWord, setSecretWord] = useState("");
 
     const toast = useToast();
+    const navigate = useNavigate();
 
-    const handleVerify = () => {
+    const [loading, setLoading] = useState(false);
+
+    const handleVerify = async () => {
 
         if (
             !email.trim() ||
@@ -33,10 +43,86 @@ export default function ForgotPasswordPage() {
             return;
         }
 
-        toast.success(
-            "Verificación enviada",
-            "La recuperación de contraseña se integrará próximamente."
-        );
+        setLoading(true);
+        
+        try {
+
+            // Buscar usuario por correo
+            const result =
+            await getUserProfileByEmail(
+                email.trim()
+            );
+
+            if (!result.data) {
+
+                toast.error(
+                    "Cuenta no encontrada",
+                    "No encontramos una cuenta asociada a ese correo."
+                );
+
+                setLoading(false);
+                return;
+            }
+
+            const profile = result.data;
+
+            // Verificar palabra secreta
+            const isValid =
+            verifySecretWord(
+                secretWord,
+                profile.palabraClave || ""
+            );
+
+            if (!isValid) {
+
+                toast.error(
+                    "Verificación fallida",
+                    "La palabra secreta no coincide con la registrada."
+                );
+
+                setLoading(false);
+                return;
+            }
+
+            // Enviar correo
+            const resetResult =
+            await sendResetEmail(
+                email.trim()
+            );
+
+            if (resetResult.success) {
+
+                toast.success(
+                    "Correo enviado",
+                    "Revisa tu bandeja de entrada para recuperar tu contraseña ✉️"
+                );
+
+                setTimeout(() => {
+                    navigate("/");
+                }, 2000);
+
+            } else {
+
+                toast.error(
+                    "Error",
+                    resetResult.error ||
+                    "No pudimos enviar el correo."
+                );
+
+            }
+
+        } catch {
+
+            toast.error(
+                "Algo salió mal",
+                "Ocurrió un error inesperado."
+            );
+
+        } finally {
+
+            setLoading(false);
+
+        }
     };
 
     return (
@@ -88,8 +174,9 @@ export default function ForgotPasswordPage() {
                 />
 
                 <AuthButton 
-                text="Verificar Cuenta" 
+                text={loading ? "Verificando..." : "Verificar Cuenta"}
                 onClick={handleVerify}
+                loading={loading}
                 />
 
                 <div className="flex items-start gap-3 mt-6 p-4 rounded-xl border border-[#E8E2D9] bg-[#FAF7F4]">

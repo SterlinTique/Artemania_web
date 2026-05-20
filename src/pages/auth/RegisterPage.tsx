@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 
 import { useToast } from "../../hooks/useToast";
 
+import { useNavigate } from "react-router-dom";
+
+import { registerUser } from "../../services/auth";
+import { hashSecretWord } from "../../utils/crypto";
+
 import AuthLayout from "../../layouts/AuthLayout";
 
 import AuthHeader from "../../components/auth/AuthHeader";
@@ -25,9 +30,12 @@ export default function RegisterPage() {
     const [acceptedTerms, setAcceptedTerms] = useState(false);
     const [showTerms, setShowTerms] = useState(false);
 
-    const toast = useToast();
+    const [loading, setLoading] = useState(false);
 
-    const handleRegister = () => {
+    const toast = useToast();
+    const navigate = useNavigate();
+
+    const handleRegister = async () => {
 
         if (
             !name.trim() ||
@@ -52,10 +60,52 @@ export default function RegisterPage() {
             return;
         }
 
-        toast.success(
-            "Registro exitoso",
-            "Tu cuenta fue creada correctamente."
-        );
+        try {
+
+            setLoading(true);
+
+            const hashedSecret = hashSecretWord(secretWord);
+
+            const result = await registerUser({
+                nombre: name,
+                email,
+                password,
+                tipo: role === "artesano"
+                    ? "Artesano"
+                    : "Cliente",
+                palabraClave: hashedSecret,
+                descripcion: description,
+            });
+
+            if (result.error) {
+
+                toast.error(
+                    "Error al registrarse",
+                    result.error
+                );
+
+                return;
+            }
+
+            toast.success(
+                "Registro exitoso",
+                "Tu cuenta fue creada correctamente 🎉"
+            );
+
+            navigate("/");
+
+        } catch {
+
+            toast.error(
+                "Error inesperado",
+                "Ocurrió un problema al crear la cuenta."
+            );
+
+        } finally {
+
+            setLoading(false);
+
+        }
     };
 
     return (
@@ -120,7 +170,7 @@ export default function RegisterPage() {
                 />
 
                 <AuthButton 
-                text="Registrarse" 
+                text={loading ? "Creando cuenta..." : "Registrarse"}
                 onClick={handleRegister}
                 />
 

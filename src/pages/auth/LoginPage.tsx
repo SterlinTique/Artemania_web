@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 
 import { useToast } from "../../hooks/useToast";
 
+import { useNavigate } from "react-router-dom";
+
+import { loginUser } from "../../services/auth";
+
 import AuthLayout from "../../layouts/AuthLayout";
 
 import AuthHeader from "../../components/auth/AuthHeader";
@@ -14,9 +18,12 @@ export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const toast = useToast();
+    const [loading, setLoading] = useState(false);
 
-    const handleLogin = () => {
+    const toast = useToast();
+    const navigate = useNavigate();
+
+    const handleLogin = async () => {
 
         if (!email.trim() || !password.trim()) {
             toast.warn(
@@ -27,10 +34,44 @@ export default function LoginPage() {
             return;
         }
 
-        toast.success(
-            "Inicio exitoso",
-            "Bienvenido nuevamente a Artemania 🎨"
-        );
+        try {
+
+            setLoading(true);
+
+            const result = await loginUser(
+                email,
+                password
+            );
+
+            if (result.error) {
+
+                toast.error(
+                    "Error al iniciar sesión",
+                    result.error
+                );
+
+                return;
+            }
+
+            toast.success(
+                "Inicio exitoso",
+                "Bienvenido nuevamente a Artemanía 🎨"
+            );
+
+            navigate("/home");
+
+        } catch {
+
+            toast.error(
+                "Error inesperado",
+                "Ocurrió un problema al iniciar sesión."
+            );
+
+        } finally {
+
+            setLoading(false);
+
+        }
     };
 
     return (
@@ -68,8 +109,9 @@ export default function LoginPage() {
             </div>
 
             <AuthButton 
-            text="Iniciar Sesión" 
+            text={loading? "Ingresando...": "Iniciar Sesión"} 
             onClick={handleLogin}
+            loading={loading}
             />
 
             {/* Register */}
